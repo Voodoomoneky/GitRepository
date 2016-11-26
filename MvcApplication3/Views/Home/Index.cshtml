@@ -1,0 +1,81 @@
+﻿@model IList<MvcApplication3.Models.LinkData>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-xs-offset-1 col-lg-8 col-md-8 col-sm-10 col-xs-10 Directories">
+    <h1 class="header">Test file system</h1>
+    <p style="text-align:center">@ViewData["Path"]</p>
+    <table class="table" style="text-align:center!important">
+        <tr>
+            <th>Less 10mb</th>
+            <th>10mb - 50mb</th>
+            <th>More 100mb</th>
+        </tr>
+        <tr>
+            <td>
+                @ViewData["SmallFiles"] 
+            </td>
+            <td>
+                @ViewData["MiddleFiles"]
+            </td>
+            <td>
+                @ViewData["BigFiles"]
+            </td>
+        </tr>
+    </table>
+    <hr class="Trans" />
+</div>
+<div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-xs-offset-1 col-lg-8 col-md-8 col-sm-10 col-xs-10 Directories">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 Directories">
+        <h1 style="text-align:center">Directories</h1>
+        <ul style="list-style-type:none">
+            @foreach (var x in Model)
+            {
+                <li><i class="fa fa-folder" aria-hidden="true"></i> @Html.ActionLink(x.Name, "Index", new { @path = x.URL }, new { @class = "nice" })</li>
+            }
+        </ul>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h1 style="text-align:center">Files</h1>
+        @*<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <ul>
+                @foreach (var x in (Dictionary<string, decimal>)ViewData["AllFiles"])
+                {
+                    <li>
+                        <i class="fa fa-file" aria-hidden="true"></i> @x.Key
+                    </li>;
+                }
+            </ul>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <ul>
+                @foreach (var x in (Dictionary<string, decimal>)ViewData["AllFiles"])
+                {
+                    <li>
+                        @x.Value kb
+                    </li>;
+                }
+            </ul>
+        </div>*@
+        <table style="width:100%">
+            @foreach (var x in (Dictionary<string, decimal>)ViewData["AllFiles"])
+{
+    <tr style="width:100%">
+        <td style="width:50%;"><i class="fa fa-file" aria-hidden="true"></i> @x.Key</td>
+        <td style="width:50%;text-align:right">@x.Value kb</td>
+    </tr>
+}
+        </table>
+    </div>
+
+</div>
+ <div class="ErrorBlock" style="position:absolute; bottom:0;background: #ff7a85; width: 200px; height: 200px; visibility:@ViewData["ErrorOccured"]">
+    <p style="text-align:center">
+        An error has occured. Either you are not authorised to look through this directory or this drive has not been loaded yet
+    </p>
+</div>
+
+
